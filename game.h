@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <cstdlib>
 #include "tetromino.h"
-
+#include <cstring>
 
 
 class Game{
@@ -11,6 +11,7 @@ class Game{
     uint16_t grid[10][20] = {0};
     bool currentTetrominoActive = false;
     Tetromino currentTetromino;
+    bool gameOver = false;
 
   public:
     int getScore();
@@ -22,7 +23,9 @@ class Game{
     bool canFallDown();
     void saveTetromino();
     Tetromino& getCurrentTetromino();
-  
+    void funcGameOver();
+    bool isGameOver();
+  bool collidesWithGrid(Tetromino& t);
 
 
 

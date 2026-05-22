@@ -14,15 +14,9 @@ Renderer renderer(&display);
 void setup() {
   Wire.begin(21, 22);
   renderer.begin();
-  renderer.clear();
-  renderer.drawBorder();
-  renderer.drawScore(game.getScore());
-
-  renderer.render();
+ 
 }
-void loop() {
-
-  renderer.clear();
+void gameLoop(){
   Tetromino& t = game.getCurrentTetromino();
   if(game.hasTetromino())
   {
@@ -36,15 +30,33 @@ void loop() {
   else
   {
     t.spawnTetro();
+
+    if(game.collidesWithGrid(t))
+    {
+      game.funcGameOver();
+      return;
+    }
+
     game.setHasTetromino(true);
   }
 
-  renderer.drawBorder();
-  renderer.drawScore(game.getScore());
-  renderer.drawGrid(game);
-  renderer.drawTetromino(t);
-
+}
+void loop() {
+  if(game.isGameOver())
+    return;
+  gameLoop();
+  
+  renderer.clear();
+  
+  if(game.isGameOver()) {
+    renderer.drawGameOver();
+  } else {
+    renderer.drawBorder();
+    renderer.drawScore(game.getScore());
+    renderer.drawGrid(game);
+    renderer.drawTetromino(game.getCurrentTetromino());
+  }
+  
   renderer.render();
-
-  delay(1000);
+  delay(10);
 }

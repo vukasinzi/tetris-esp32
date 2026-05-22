@@ -16,6 +16,7 @@ class Renderer{
     void clear();
     void drawTetromino(Tetromino& t);
     void drawGrid(Game& game);
+    void drawGameOver();
 
 
 };

@@ -59,4 +59,8 @@ void Renderer::drawTetromino(Tetromino& t)
   
   }
 }
+void Renderer::drawGameOver(){
+   display->setCursor(5, 60);
+  display->println("GAME OVER");
+}
 
