@@ -2,6 +2,8 @@
 #include <Adafruit_SSD1306.h>
 #include "config.h"
 #include "tetromino.h"
+#include "game.h"
+
 class Renderer{
   private:
       Adafruit_SSD1306* display;
@@ -11,6 +13,9 @@ class Renderer{
     void drawScore(int score);
     void drawBorder();
     void render();
-    void drawTetromino(Tetromino t);
+    void clear();
+    void drawTetromino(Tetromino& t);
+    void drawGrid(Game& game);
+
 
 };

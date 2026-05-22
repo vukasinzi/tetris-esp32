@@ -24,3 +24,9 @@ Rotation Tetromino::getRotation()
 {
   return rotation;
 }
+void Tetromino::fallDown(){
+    for(int i = 0; i< 4;i++)
+    {
+      tetroBlocks[i].p.y+=1;
+    }
+}

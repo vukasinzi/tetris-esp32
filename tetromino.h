@@ -1,3 +1,4 @@
+#pragma once
 #include <stdint.h>
 
 enum class TetrominoType{
@@ -33,6 +34,7 @@ class Tetromino{
       TetrominoType getTetroType();
       TetroBlock* getTetroblocks();
       Rotation getRotation();
+      void fallDown();
 
 
   
