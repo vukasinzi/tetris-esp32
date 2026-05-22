@@ -28,4 +28,16 @@ void Renderer::drawBorder()
   display->drawRect(BORDER_X, BORDER_Y, BORDER_W, BORDER_H, SSD1306_WHITE);
   display->display();
 }
+void Renderer::drawTetromino(Tetromino t)
+{
+  TetroBlock* blocks = t.getTetroblocks();
+  for (int i = 0; i< 4; i++) {
+    int x = BORDER_X+ blocks[i].p.x*CELL;
+    int y = BORDER_Y +blocks[i].p.y*CELL;
+
+  display->drawRect(x,y, CELL, CELL, SSD1306_WHITE);
+  display->display();
+  
+  }
+}
 

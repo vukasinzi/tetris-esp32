@@ -13,12 +13,15 @@ Renderer renderer(&display);
 
 void setup() {
   Wire.begin(21, 22); 
-  renderer.begin();
-  game.addScore(12);
-  
+  renderer.begin();  
   renderer.drawBorder();
+  game.addScore(120);
   renderer.drawScore(game.getScore());
   
+  Tetromino t;
+
+  t.spawnTetro();
+  renderer.drawTetromino(t);
 }
 
 void loop() {}
