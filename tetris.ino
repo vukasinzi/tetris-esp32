@@ -10,18 +10,20 @@ Adafruit_SSD1306 display(128, 64, &Wire, -1);
 
 Game game;
 Renderer renderer(&display);
-
+unsigned long previous;
 void setup() {
   Wire.begin(21, 22);
   renderer.begin();
  
 }
-void gameLoop(){
-  Tetromino& t = game.getCurrentTetromino();
+void gameTick(){
+ 
+ 
   if(game.hasTetromino())
   {
+   
     if(game.canFallDown())
-      t.fallDown();
+      game.getCurrentTetromino().fallDown();
     else{
       game.saveTetromino();
     }
@@ -29,9 +31,9 @@ void gameLoop(){
   }
   else
   {
-    t.spawnTetro();
+    game.getCurrentTetromino().spawnTetro();
 
-    if(game.collidesWithGrid(t))
+    if(game.collidesWithGrid(game.getCurrentTetromino()))
     {
       game.funcGameOver();
       return;
@@ -41,10 +43,17 @@ void gameLoop(){
   }
 
 }
+
 void loop() {
   if(game.isGameOver())
     return;
-  gameLoop();
+  unsigned long currentTime = millis();
+  if((currentTime-previous)>=1000)
+  {
+    previous = currentTime;
+    gameTick();
+    
+  }
   
   renderer.clear();
   
@@ -58,5 +67,5 @@ void loop() {
   }
   
   renderer.render();
-  delay(10);
+ 
 }
