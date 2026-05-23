@@ -1,6 +1,6 @@
 #include "game.h"
 
-
+Game::Game() = default;
 void Game::addScore(int amount) {
     score += amount;
 }
@@ -46,15 +46,7 @@ void Game:: saveTetromino(){
   }
   setHasTetromino(false);
 }
-void Game:: funcGameOver(){
-   gameOver = true;
-   currentTetrominoActive = false;
-  memset(grid, 0, sizeof(grid)); 
 
-}
-bool Game:: isGameOver(){
-  return gameOver;
-}
 bool Game::collidesWithGrid(Tetromino& t)
 {
   TetroBlock* blocks = t.getTetroblocks();

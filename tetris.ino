@@ -5,9 +5,13 @@
 #include "renderer.h"
 #include "config.h"
 
+
 Adafruit_SSD1306 display(128, 64, &Wire, -1);
 
-
+enum class STATE{
+  START,GAME_OVER, SPAWN,FALL
+};
+STATE state = STATE::START;
 Game game;
 Renderer renderer(&display);
 unsigned long previous;
@@ -19,51 +23,68 @@ void setup() {
 void gameTick(){
  
  
-  if(game.hasTetromino())
+  switch(state)
   {
-   
-    if(game.canFallDown())
-      game.getCurrentTetromino().fallDown();
-    else{
-      game.saveTetromino();
-    }
-   
-  }
-  else
-  {
-    game.getCurrentTetromino().spawnTetro();
+    case STATE::START:
+    game = Game();
+    state = STATE::SPAWN;
+    break;
 
+    case STATE::SPAWN:
+    game.getCurrentTetromino().spawnTetro();
     if(game.collidesWithGrid(game.getCurrentTetromino()))
     {
-      game.funcGameOver();
-      return;
+      state = STATE::GAME_OVER;
+      break;
     }
-
     game.setHasTetromino(true);
+    state = STATE::FALL;
+    break;
+
+    case STATE::FALL:
+    if(game.hasTetromino())
+    {
+      if(game.canFallDown())
+        game.getCurrentTetromino().fallDown();
+      else{
+        game.saveTetromino();
+        game.setHasTetromino(false);
+        state = STATE::SPAWN;
+        }
+    }
+    break;
+
+    case STATE::GAME_OVER:
+      //opcija da se igra restartuje...
+    break;
   }
+  
+
 
 }
 
 void loop() {
-  if(game.isGameOver())
+  if(state == STATE::GAME_OVER)
     return;
   unsigned long currentTime = millis();
-  if((currentTime-previous)>=1000)
+  if((currentTime-previous)>=10)
   {
     previous = currentTime;
     gameTick();
     
   }
-  
   renderer.clear();
   
-  if(game.isGameOver()) {
+  if(state == STATE::GAME_OVER){
     renderer.drawGameOver();
+    game = Game();
+    previous = millis();
   } else {
     renderer.drawBorder();
     renderer.drawScore(game.getScore());
     renderer.drawGrid(game);
-    renderer.drawTetromino(game.getCurrentTetromino());
+    if(game.hasTetromino())
+      renderer.drawTetromino(game.getCurrentTetromino());
   }
   
   renderer.render();

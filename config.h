@@ -22,4 +22,7 @@
 
 #define BORDER_W 52
 #define BORDER_H 102
+
+
+
 //dakle ostace dole 8 Y pixela

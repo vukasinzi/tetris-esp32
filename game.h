@@ -14,6 +14,7 @@ class Game{
     bool gameOver = false;
 
   public:
+    Game();
     int getScore();
     void addScore(int amount);
   uint16_t getCell(uint16_t x, uint16_t y);
@@ -23,8 +24,6 @@ class Game{
     bool canFallDown();
     void saveTetromino();
     Tetromino& getCurrentTetromino();
-    void funcGameOver();
-    bool isGameOver();
   bool collidesWithGrid(Tetromino& t);
 
 
