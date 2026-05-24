@@ -24,19 +24,44 @@ void Game:: setHasTetromino(bool value)
 {
   currentTetrominoActive = value;
 }
-bool Game:: canFallDown(){
-  for(int i = 0; i<4;i++)
+bool Game::canMove(Tetromino& t){
+  for(int i = 0; i < 4; i++)
   {
-    int tetromino_x = currentTetromino.getTetroblocks()[i].p.x;
-    int tetromino_y = currentTetromino.getTetroblocks()[i].p.y;
-    if(tetromino_x>=10 || tetromino_y >=19)
+    int x = t.getTetroblocks()[i].p.x;
+    int y = t.getTetroblocks()[i].p.y;
+
+    if(x < 0 || x >= 10 || y < 0 || y >= 20)
       return false;
-    if(grid[tetromino_x][tetromino_y+1]==1)
+
+    if(grid[x][y] == 1)
       return false;
   }
-  return true;
 
+  return true;
 }
+bool Game:: canFallDown()
+{
+  Tetromino copy = currentTetromino;
+  copy.fallDown();
+  return canMove(copy);
+}
+bool Game::canMoveLeft(){
+  Tetromino copy = currentTetromino;
+  copy.moveLeft();
+  return canMove(copy);
+}
+bool Game::canMoveRight(){
+  Tetromino copy = currentTetromino;
+  copy.moveRight();
+  return canMove(copy);
+}
+
+bool Game::canRotate(){
+  Tetromino copy = currentTetromino;
+  copy.rotate();
+  return canMove(copy);
+}
+
 void Game:: saveTetromino(){
   
   for(int i = 0; i< 4;i++)

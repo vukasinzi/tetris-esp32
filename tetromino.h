@@ -8,8 +8,8 @@ enum class Rotation{
   zero = 0,half_pi=90,pi=180,pi_and_a_half=270
 };
 struct Position{
- uint8_t x;
- uint8_t y; 
+  int x;
+  int y;
 };
 
 const Position shapes[7][4] = {
@@ -35,6 +35,10 @@ class Tetromino{
       TetroBlock* getTetroblocks();
       Rotation getRotation();
       void fallDown();
+      void moveLeft();
+      void moveRight();
+      void rotate();
+
 
 
   

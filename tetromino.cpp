@@ -30,3 +30,20 @@ void Tetromino::fallDown(){
       tetroBlocks[i].p.y+=1;
     }
 }
+void Tetromino::moveLeft()
+{
+  for(int i = 0;i<4;i++)
+  {
+    tetroBlocks[i].p.x-=1;
+  }
+}
+void Tetromino::moveRight(){
+   for(int i = 0;i<4;i++)
+  {
+    tetroBlocks[i].p.x+=1;
+  }
+}
+void Tetromino::rotate()
+{
+  
+}

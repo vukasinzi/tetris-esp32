@@ -4,21 +4,26 @@
 #include "game.h"
 #include "renderer.h"
 #include "config.h"
+#include "inputManager.h"
 
 
 Adafruit_SSD1306 display(128, 64, &Wire, -1);
 
 enum class STATE{
-  START,GAME_OVER, SPAWN,FALL
+  MAIN_MENU,START,GAME_OVER, SPAWN,FALL
 };
-STATE state = STATE::START;
+STATE state = STATE::MAIN_MENU;
 Game game;
+inputManager input;
 Renderer renderer(&display);
 unsigned long previous;
+unsigned long currentTime;
+
 void setup() {
   Wire.begin(21, 22);
   renderer.begin();
- 
+   input.begin();
+
 }
 void gameTick(){
  
@@ -26,6 +31,7 @@ void gameTick(){
   switch(state)
   {
     case STATE::START:
+    previous = millis();
     game = Game();
     state = STATE::SPAWN;
     break;
@@ -35,6 +41,7 @@ void gameTick(){
     if(game.collidesWithGrid(game.getCurrentTetromino()))
     {
       state = STATE::GAME_OVER;
+      
       break;
     }
     game.setHasTetromino(true);
@@ -55,38 +62,68 @@ void gameTick(){
     break;
 
     case STATE::GAME_OVER:
-      //opcija da se igra restartuje...
+    if (input.anyKeyPressed()) {
+    state = STATE::START;
+    }
+
     break;
   }
-  
-
-
 }
-
-void loop() {
-  if(state == STATE::GAME_OVER)
-    return;
-  unsigned long currentTime = millis();
-  if((currentTime-previous)>=10)
-  {
-    previous = currentTime;
-    gameTick();
-    
-  }
-  renderer.clear();
+void handleInput(){
   
-  if(state == STATE::GAME_OVER){
+  Tetromino& t = game.getCurrentTetromino();
+  if(input.consumeLeft() && game.canMoveLeft())
+    t.moveLeft();
+
+  if(input.consumeRight() && game.canMoveRight())
+    t.moveRight();
+
+  if(input.consumeDown() && game.canFallDown())
+    t.fallDown();
+
+  if(input.consumeRotate() && game.canRotate())
+    t.rotate();
+  
+}
+void loop() {
+   input.update();
+
+    currentTime = millis();
+    
+  renderer.clear();
+  switch(state)
+  {
+    case STATE::GAME_OVER:
     renderer.drawGameOver();
-    game = Game();
-    previous = millis();
-  } else {
+    if (input.anyKeyPressed()) {
+      state = STATE::START;
+    }
+    break;
+    case STATE::MAIN_MENU:
+    renderer.drawMainMenu();
+     if (input.anyKeyPressed()) {
+      state = STATE::START;
+     }
+    break;
+    case STATE::START:
+    gameTick();
+    break;
+    default:
+     if((currentTime - previous) >= 1000) {
+        previous = currentTime; //poseban slucaj zato što prvi spawn krene sa 2s kasnjenja umesto 1s.
+    //resenje - ne cekamo da prodje 2 sekunde za 2 ticka da bi se desio prebacaj mainmenu->start->spawn nego automatski ga pozovemo.
+        gameTick();
+     }
     renderer.drawBorder();
     renderer.drawScore(game.getScore());
     renderer.drawGrid(game);
     if(game.hasTetromino())
+    {
+      handleInput();
       renderer.drawTetromino(game.getCurrentTetromino());
-  }
-  
+    }
+    break;
+   }
   renderer.render();
- 
+   
 }

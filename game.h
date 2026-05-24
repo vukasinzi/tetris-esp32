@@ -11,7 +11,6 @@ class Game{
     uint16_t grid[10][20] = {0};
     bool currentTetrominoActive = false;
     Tetromino currentTetromino;
-    bool gameOver = false;
 
   public:
     Game();
@@ -22,6 +21,11 @@ class Game{
     bool hasTetromino();
     void setHasTetromino(bool value);
     bool canFallDown();
+    bool canMove(Tetromino& t);
+    bool canMoveLeft();
+    bool canMoveRight();
+    bool canMoveDown();
+    bool canRotate();
     void saveTetromino();
     Tetromino& getCurrentTetromino();
   bool collidesWithGrid(Tetromino& t);
