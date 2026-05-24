@@ -16,7 +16,6 @@ class Renderer{
     void clear();
     void drawTetromino(Tetromino& t);
     void drawGrid(Game& game);
-    void drawGameOver();
-    void drawMainMenu();
+    void drawMenu(const char* title,const char* prompt);
 
 };

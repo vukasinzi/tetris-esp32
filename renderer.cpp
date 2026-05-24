@@ -59,15 +59,11 @@ void Renderer::drawTetromino(Tetromino& t)
   
   }
 }
-void Renderer::drawGameOver(){
-  display->setCursor(5, 60);
-  display->println("GAME OVER");
-}
-void Renderer::drawMainMenu(){
-  display->setCursor(5,60);
-  display->println("MAIN MENU");
-  display->setCursor(18,75);
-  display->println("press"); 
-
+void Renderer::drawMenu(const char* title, const char* prompt)
+{
+ display->setCursor(5, 60);
+  display->println(title);
+   display->setCursor(18,75);
+  display->println(prompt); 
 }
 

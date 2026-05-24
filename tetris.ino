@@ -94,13 +94,13 @@ void loop() {
   switch(state)
   {
     case STATE::GAME_OVER:
-    renderer.drawGameOver();
+    renderer.drawMenu("GAME OVER","press");
     if (input.anyKeyPressed()) {
       state = STATE::START;
     }
     break;
     case STATE::MAIN_MENU:
-    renderer.drawMainMenu();
+    renderer.drawMenu("MAIN MENU","press");
      if (input.anyKeyPressed()) {
       state = STATE::START;
      }
