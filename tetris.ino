@@ -81,8 +81,8 @@ void handleInput(){
   if(input.consumeDown() && game.canFallDown())
     t.fallDown();
 
-  if(input.consumeRotate() && game.canRotate())
-    t.rotate();
+  if(input.consumeRotate())
+    game.tryRotate();
   
 }
 void loop() {

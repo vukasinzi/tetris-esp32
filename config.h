@@ -25,7 +25,7 @@
 
 
 const int LEFT_BUTTON = 14;
-const int DOWN_BUTTON = 25;
 const int RIGHT_BUTTON = 26;
-const int ROTATION_BUTTON = 27;
+const int DOWN_BUTTON = 27;
+const int ROTATION_BUTTON = 25;
 //dakle ostace dole 8 Y pixela

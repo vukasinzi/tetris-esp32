@@ -25,7 +25,8 @@ class Game{
     bool canMoveLeft();
     bool canMoveRight();
     bool canMoveDown();
-    bool canRotate();
+    bool tryRotate();//glavno odstupanje
+
     void saveTetromino();
     Tetromino& getCurrentTetromino();
   bool collidesWithGrid(Tetromino& t);

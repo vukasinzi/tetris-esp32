@@ -55,13 +55,70 @@ bool Game::canMoveRight(){
   copy.moveRight();
   return canMove(copy);
 }
-
-bool Game::canRotate(){
+/**implementirano floor kick na dnu f-je i wallkickovi x2*/
+bool Game::tryRotate()
+{
   Tetromino copy = currentTetromino;
   copy.rotate();
-  return canMove(copy);
-}
 
+  if(canMove(copy))
+  {
+    currentTetromino = copy;
+    return true;
+  }
+
+  Tetromino right1 = copy;
+  right1.moveRight();
+
+  if(canMove(right1))
+  {
+    currentTetromino = right1;
+    return true;
+  }
+
+  Tetromino left1 = copy;
+  left1.moveLeft();
+
+  if(canMove(left1))
+  {
+    currentTetromino = left1;
+    return true;
+  }
+
+  Tetromino right2 = copy;
+  right2.moveRight();
+  right2.moveRight();
+
+  if(canMove(right2))
+  {
+    currentTetromino = right2;
+    return true;
+  }
+
+  Tetromino left2 = copy;
+  left2.moveLeft();
+  left2.moveLeft();
+
+  if(canMove(left2))
+  {
+    currentTetromino = left2;
+    return true;
+  }
+
+  Tetromino up = copy;
+  for(int i = 0; i < 4; i++)
+  {
+    up.getTetroblocks()[i].p.y -= 1;
+  }
+
+  if(canMove(up))
+  {
+    currentTetromino = up;
+    return true;
+  }
+
+  return false;
+}
 void Game:: saveTetromino(){
   
   for(int i = 0; i< 4;i++)

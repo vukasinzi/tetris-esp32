@@ -10,7 +10,6 @@ void Tetromino::spawnTetro()
       {
         tetroBlocks[i].p = shapes[(int)type][i];
       }
-      rotation = Rotation::zero;
 }
 TetrominoType Tetromino::getTetroType()
 {
@@ -19,10 +18,6 @@ TetrominoType Tetromino::getTetroType()
 TetroBlock* Tetromino::getTetroblocks()
 {
   return tetroBlocks;
-}
-Rotation Tetromino::getRotation()
-{
-  return rotation;
 }
 void Tetromino::fallDown(){
     for(int i = 0; i< 4;i++)
@@ -45,5 +40,20 @@ void Tetromino::moveRight(){
 }
 void Tetromino::rotate()
 {
-  
+  if(type == TetrominoType::O)
+    return;
+  int pivotX = tetroBlocks[1].p.x;
+  int pivotY = tetroBlocks[1].p.y;
+
+  for(int i = 0; i < 4; i++)
+  {
+    int oldX = tetroBlocks[i].p.x;
+    int oldY = tetroBlocks[i].p.y;
+
+    int dx = oldX - pivotX;
+    int dy = oldY - pivotY;
+
+    tetroBlocks[i].p.x = pivotX - dy;
+    tetroBlocks[i].p.y = pivotY + dx;
+  }
 }

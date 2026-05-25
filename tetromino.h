@@ -4,9 +4,7 @@
 enum class TetrominoType{
   T,Z,S,O,J,L,I
 };
-enum class Rotation{
-  zero = 0,half_pi=90,pi=180,pi_and_a_half=270
-};
+
 struct Position{
   int x;
   int y;
@@ -28,12 +26,10 @@ class Tetromino{
   private:
     TetrominoType type;
     TetroBlock tetroBlocks[4];
-    Rotation rotation;
   public:
       void spawnTetro();
       TetrominoType getTetroType();
       TetroBlock* getTetroblocks();
-      Rotation getRotation();
       void fallDown();
       void moveLeft();
       void moveRight();
