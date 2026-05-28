@@ -26,6 +26,7 @@ class Game{
     bool canMoveRight();
     bool canMoveDown();
     bool tryRotate();//glavno odstupanje
+    void clearLines();
 
     void saveTetromino();
     Tetromino& getCurrentTetromino();

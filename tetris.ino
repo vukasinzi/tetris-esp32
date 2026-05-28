@@ -55,6 +55,7 @@ void gameTick(){
         game.getCurrentTetromino().fallDown();
       else{
         game.saveTetromino();
+        game.clearLines();
         game.setHasTetromino(false);
         state = STATE::SPAWN;
         }

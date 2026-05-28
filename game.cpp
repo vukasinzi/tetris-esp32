@@ -144,3 +144,34 @@ bool Game::collidesWithGrid(Tetromino& t)
 
   return false;
 }
+void Game::clearLines() {
+    int count = 0;
+    for (int i = 0; i < 20; i++) {
+
+        bool flag = true;
+        for (int j = 0; j < 10; j++) {
+            if (grid[j][i] == 0) {
+                flag = false;
+                break;
+            }
+        }
+
+        if (flag) {
+            count++;
+            for (int k = i; k > 0; k--) {//krecem od trenutnog reda koji je pun i idem nagore
+                for (int j = 0; j < 10; j++) {
+                    grid[j][k] = grid[j][k - 1];
+                }
+            }
+            for (int j = 0; j < 10; j++)//bitan edge case za vrh table. nemoguce je da nesto van grida padne na prvi red, pa moramo ga rucno resetovati
+                grid[j][0] = 0;
+            i--;//prakticno ovaj deo f-je gore pomeri sve za jedan red dole kad red bude skrsen. samim tim i-1 postaje i. to je dobro ali for petlja gore ce pomeriti i na i++!
+            //zato moramo da neutralisemo taj njen preskok
+        }
+    }
+    switch(count) {
+        case 1: addScore(100); break;
+        case 2: addScore(300); break;
+        case 3: addScore(500); break;
+        case 4: addScore(800); break;}
+}
