@@ -1,0 +1,41 @@
+# ESP32 / Arduino secrets
+secrets.h
+
+# Python environment variables
+.env
+**/.env
+
+# Python virtual environments
+venv/
+.venv/
+env/
+ENV/
+**/venv/
+**/.venv/
+
+# Python cache
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Flask cache / instance
+instance/
+.webassets-cache
+
+# Local database files, ako ih ikad koristiš
+*.db
+*.sqlite
+*.sqlite3
+
+# Arduino exported binaries / build artifacts
+*.bin
+*.elf
+*.hex
+*.map
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
