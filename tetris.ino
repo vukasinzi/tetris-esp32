@@ -110,13 +110,13 @@ void loop() {
     gameTick();
     break;
     default:
-     if((currentTime - previous) >= 1000) {
+     if ((currentTime - previous) >= game.getFallDelay()) {
         previous = currentTime; //poseban slucaj zato što prvi spawn krene sa 2s kasnjenja umesto 1s.
     //resenje - ne cekamo da prodje 2 sekunde za 2 ticka da bi se desio prebacaj mainmenu->start->spawn nego automatski ga pozovemo.
         gameTick();
      }
     renderer.drawBorder();
-    renderer.drawScore(game.getScore());
+    renderer.drawStats(game);
     renderer.drawGrid(game);
     if(game.hasTetromino())
     {

@@ -8,6 +8,7 @@
 class Game{
   private:
     int score = 0;
+    int globalCount = 0;
     uint16_t grid[10][20] = {0};
     bool currentTetrominoActive = false;
     Tetromino currentTetromino;
@@ -26,6 +27,9 @@ class Game{
     bool canMoveRight();
     bool canMoveDown();
     bool tryRotate();//glavno odstupanje
+    int getLines();
+    int getLevel();
+    int getFallDelay();
     void clearLines();
 
     void saveTetromino();

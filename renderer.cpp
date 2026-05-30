@@ -21,11 +21,14 @@ void Renderer::clear(){
 void Renderer::render(){
   display->display();
 }
-void Renderer::drawScore(int score)
+void Renderer::drawStats(Game& game)
 {
-  display->setCursor(SCORE_X, SCORE_Y);      
-  display->print("S:");
-  display->print(score);
+    display->setCursor(SCORE_X, SCORE_Y);
+    display->print("S:");
+    display->print(game.getScore());
+
+    display->print(" L:");
+    display->print(game.getLevel());
 }
 void Renderer::drawBorder()
 {

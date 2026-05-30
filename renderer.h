@@ -10,7 +10,7 @@ class Renderer{
   public:
     Renderer(Adafruit_SSD1306* display);
     void begin();
-    void drawScore(int score);
+    void drawStats(Game& game);
     void drawBorder();
     void render();
     void clear();

@@ -144,6 +144,25 @@ bool Game::collidesWithGrid(Tetromino& t)
 
   return false;
 }
+int Game::getLines()
+{
+    return globalCount;
+}
+
+int Game::getLevel()
+{
+    return globalCount / 10 + 1;
+}
+
+int Game::getFallDelay()
+{
+    int delayMs = 1000 - ((getLevel() - 1) * 80);//12 levela. posle 12og bude fiksno 150ms.
+
+    if (delayMs < 150)
+        delayMs = 150;
+
+    return delayMs;
+}
 void Game::clearLines() {
     int count = 0;
     for (int i = 0; i < 20; i++) {
@@ -170,8 +189,9 @@ void Game::clearLines() {
         }
     }
     switch(count) {
-        case 1: addScore(100); break;
-        case 2: addScore(300); break;
-        case 3: addScore(500); break;
-        case 4: addScore(800); break;}
+        case 1: addScore(100 * getLevel()); break;
+        case 2: addScore(300 * getLevel()); break;
+        case 3: addScore(500 * getLevel()); break;
+        case 4: addScore(800 * getLevel()); break;}
+    globalCount+=count;
 }
