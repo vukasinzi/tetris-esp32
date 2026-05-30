@@ -18,7 +18,7 @@
 #define SCORE_Y 5
 
 #define BORDER_X 6
-#define BORDER_Y 18//koordinate, 5 prazno, 8 rez za score i 5 razmak
+#define BORDER_Y 26
 
 #define BORDER_W 52
 #define BORDER_H 102

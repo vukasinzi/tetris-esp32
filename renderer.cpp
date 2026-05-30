@@ -27,7 +27,8 @@ void Renderer::drawStats(Game& game)
     display->print("S:");
     display->print(game.getScore());
 
-    display->print(" L:");
+    display->setCursor(SCORE_X, SCORE_Y + 10);
+    display->print("L:");
     display->print(game.getLevel());
 }
 void Renderer::drawBorder()
