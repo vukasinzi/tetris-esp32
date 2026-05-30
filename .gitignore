@@ -12,7 +12,12 @@ env/
 ENV/
 **/venv/
 **/.venv/
-
+venv/
+.venv/
+env/
+ENV/
+**/venv/
+**/.venv/
 # Python cache
 __pycache__/
 **/__pycache__/
